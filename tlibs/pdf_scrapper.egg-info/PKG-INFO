@@ -1,0 +1,7 @@
+Metadata-Version: 2.1
+Name: pdf-scrapper
+Version: 0.1
+Requires-Dist: numpy>=1.18.0
+Requires-Dist: matplotlib>=3.1.0
+Requires-Dist: pandas>=1.0.0
+Requires-Dist: PyMuPDF>=1.18.14
