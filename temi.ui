@@ -6,12 +6,30 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1617</width>
-    <height>895</height>
+    <width>1029</width>
+    <height>568</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">/* MenuToolbar Style */
+QMenuBar {
+    background-color: #F0F0F0; 
+    border: 1px solid #CCCCCC; 
+}
+
+/* Style for menu elements */
+QMenu {
+    border: 1px solid #CCCCCC; 
+}
+
+/* Style for actions menu */
+QAction {
+    border: 1px solid #CCCCCC; 
+}
+</string>
   </property>
   <widget class="QWidget" name="centralwidget"/>
   <widget class="QStatusBar" name="statusbar"/>
@@ -20,13 +38,13 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1617</width>
-     <height>21</height>
+     <width>1029</width>
+     <height>23</height>
     </rect>
    </property>
    <widget class="QMenu" name="menufile">
     <property name="title">
-     <string>file</string>
+     <string>File</string>
     </property>
     <addaction name="actionOpen_file"/>
    </widget>

@@ -52,7 +52,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.menufile.setTitle(_translate("MainWindow", "file"))
+        self.menufile.setTitle(_translate("MainWindow", "File"))
         self.actionOpen_file.setText(_translate("MainWindow", "Open file"))
 
 
