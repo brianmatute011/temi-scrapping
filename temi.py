@@ -13,22 +13,6 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1029, 568)
-        MainWindow.setStyleSheet("/* MenuToolbar Style */\n"
-"QMenuBar {\n"
-"    background-color: #F0F0F0; \n"
-"    border: 1px solid #CCCCCC; \n"
-"}\n"
-"\n"
-"/* Style for menu elements */\n"
-"QMenu {\n"
-"    border: 1px solid #CCCCCC; \n"
-"}\n"
-"\n"
-"/* Style for actions menu */\n"
-"QAction {\n"
-"    border: 1px solid #CCCCCC; \n"
-"}\n"
-"")
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         MainWindow.setCentralWidget(self.centralwidget)
@@ -36,7 +20,7 @@ class Ui_MainWindow(object):
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
         self.menubar = QtWidgets.QMenuBar(parent=MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1029, 23))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1029, 21))
         self.menubar.setObjectName("menubar")
         self.menufile = QtWidgets.QMenu(parent=self.menubar)
         self.menufile.setObjectName("menufile")
@@ -46,6 +30,12 @@ class Ui_MainWindow(object):
         self.menufile.addAction(self.actionOpen_file)
         self.menubar.addAction(self.menufile.menuAction())
 
+        self.actionOpen_file.triggered.connect(self.open_file_dialog)
+
+
+
+
+
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -54,6 +44,14 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.menufile.setTitle(_translate("MainWindow", "file"))
         self.actionOpen_file.setText(_translate("MainWindow", "Open file"))
+
+    def open_file_dialog(self):
+        file_dialog = QtWidgets.QFileDialog()
+        file_dialog.setFileMode(QtWidgets.QFileDialog.FileMode.ExistingFile)
+        if file_dialog.exec():
+            file_names = file_dialog.selectedFiles()
+            # Process file... 
+            print("Select file:", file_names[0])
 
 
 if __name__ == "__main__":
