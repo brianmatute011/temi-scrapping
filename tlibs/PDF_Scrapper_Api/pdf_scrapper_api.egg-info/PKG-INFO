@@ -1,8 +1,0 @@
-Metadata-Version: 2.1
-Name: pdf-scrapper-api
-Version: 0.1
-Requires-Dist: numpy>=1.18.0
-Requires-Dist: pandas>=1.0.0
-Requires-Dist: PyPDF2>=1.0.0
-Requires-Dist: PyMuPDF>=1.18.14
-Requires-Dist: pdftables-api@ https://github.com/pdftables/python-pdftables-api/archive/master.tar.gz
