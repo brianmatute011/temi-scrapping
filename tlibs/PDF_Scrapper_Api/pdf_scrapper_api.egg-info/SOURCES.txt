@@ -1,0 +1,6 @@
+setup.py
+pdf_scrapper_api.egg-info/PKG-INFO
+pdf_scrapper_api.egg-info/SOURCES.txt
+pdf_scrapper_api.egg-info/dependency_links.txt
+pdf_scrapper_api.egg-info/requires.txt
+pdf_scrapper_api.egg-info/top_level.txt
