@@ -1,1 +1,6 @@
-*.pdf 
+*.pdf
+*.ipynb
+*.csv
+*.ui 
+test.py
+
