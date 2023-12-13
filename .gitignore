@@ -1,6 +1,13 @@
-*.pdf
-*.ipynb
-*.csv
-*.ui 
-test.py
+.ipynb_checkpoints/
+**/*.ipynb
 
+
+tlibs/data/
+tlibs/bindata/
+
+
+**/*.pdf
+**/*.csv
+**/*.xlsx
+
+test.py

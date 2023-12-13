@@ -7,7 +7,6 @@ setup(
     install_requires=[
         'numpy>=1.18.0',
         'pandas>=1.0.0',
-        'PyPDF2>=1.0.0',
         'PyMuPDF>=1.18.14', # Esta es la dependencia para fitz (PyMuPDF es el nombre del paquete que incluye fitz)
         'pdftables-api @ https://github.com/pdftables/python-pdftables-api/archive/master.tar.gz'
     ],
