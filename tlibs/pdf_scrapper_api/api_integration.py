@@ -15,7 +15,6 @@ class user_pdftables:
             return None
 
     def extract_pages(self, input_file: str, output_directory=None, **kwargs):
-        print("pass")
         try:
             if output_directory is None:
                 output_directory = os.path.dirname(input_file)
