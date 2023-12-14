@@ -15,7 +15,10 @@ def find_key_last( palabra, datos, indice ):
       if palabra == valor:
         return i
 
-  return -1
+def spell_check( string ):
+  spell = Speller(lang='es')
+  string = str( string )
+  return spell( string )
 
 def Sanitize(xlsx_save_path):
   carpeta_xlsx = xlsx_save_path
@@ -35,10 +38,9 @@ def Sanitize(xlsx_save_path):
     for i in range(0, len(palabras_clave )):
       inicio = find_key( palabras_clave[i], df )
       final = find_key_last( palabras_clave2[i], df, inicio )
-      if final == -1:
-        final = find_key_last( palabras_clave3[i], df, inicio )
-      nuevo_df = df.iloc[inicio:final + 1, :]
-      nuevo_df.to_excel( ruta_parcial + f'_tab{i}.xlsx')
+      new_df = df.iloc[inicio:final + 1, :]
+      spell_df = new_df.applymap(spell_check)
+      spell_df.to_excel( ruta_parcial + f'_tab{i}.xlsx')
       #temp = os.path.join('/content/', ruta_parcial + f'_tab{i}.xlsx')
       #!cp {temp} {carpeta_xlsx}\
 
