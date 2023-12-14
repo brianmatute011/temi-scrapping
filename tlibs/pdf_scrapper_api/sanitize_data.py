@@ -1,5 +1,6 @@
 import pandas as pd
 import os
+from autocorrect import Speller
 
 def find_key( palabra, datos ):
   for i, fila in datos.iterrows():
