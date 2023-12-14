@@ -60,9 +60,14 @@ class MainWindow(QMainWindow):
     def update_serviceinfo(self):
         token_hash = get_tokenhash()
         if not token_hash is None:
-            cpage_avaible = read_binfile_from_tokenhash(token_hash) 
+            cpage_avaible = read_binfile_from_tokenhash(token_hash)
             self.ui.label_3.setText(f'Paginas disponibles: {cpage_avaible}')
-            self.ui.label_3.setStyleSheet("color: green")
+
+            if cpage_avaible > 10: 
+                self.ui.label_3.setStyleSheet("color: green")
+            else:
+                self.ui.label_3.setStyleSheet("color: red")
+                    
             self.user_key = cpage_avaible
 
 
