@@ -48,7 +48,7 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("temi-scrapped")
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.user_key = get_tokenhash()
+        self.user_key = None
         self.license_dialog = LicenseDialog()
 
         self.ui.actionOpen_file.triggered.connect(open_file_dialog)
@@ -63,6 +63,7 @@ class MainWindow(QMainWindow):
             cpage_avaible = read_binfile_from_tokenhash(token_hash) 
             self.ui.label_3.setText(f'Paginas disponibles: {cpage_avaible}')
             self.ui.label_3.setStyleSheet("color: green")
+            self.user_key = cpage_avaible
 
 
 
