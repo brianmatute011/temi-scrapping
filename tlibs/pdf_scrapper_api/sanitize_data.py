@@ -1,5 +1,4 @@
 import pandas as pd
-import pdftables_api
 import os
 
 def find_key( palabra, datos ):
