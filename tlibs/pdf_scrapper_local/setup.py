@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='pdf_scrapper_manual',
-    version='0.1',
+    name='pdf_scrapper_local',
+    version='1.2',
     packages=find_packages(),
     install_requires=[
         'numpy>=1.18.0',
