@@ -7,11 +7,11 @@ Requisitos Previos
 Antes de utilizar esta aplicación, asegúrate de tener instaladas las siguientes dependencias:
 
     Python 3.x
-    'numpy>=1.18.0',
-    'pandas>=1.0.0',
-    'PyMuPDF>=1.18.14',
-    'autocorrect>=1.0.0',
-    'pdftables_api @ https://github.com/pdftables/python-pdftables-api/archive/master.tar.gz',
+    numpy>=1.18.0,
+    pandas>=1.0.0,
+    PyMuPDF>=1.18.14,
+    autocorrect>=1.0.0,
+    pdftables_api @ https://github.com/pdftables/python-pdftables-api/archive/master.tar.gz,
 
 
 Contribuciones
