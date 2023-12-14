@@ -24,7 +24,7 @@ def spell_check(string):
 def Sanitize(xlsx_save_path):
     try:
         carpeta_xlsx = xlsx_save_path
-        archivos_xlsx = [archivo for archivo in os.listdir(carpeta_xlsx) if archivo.endswith('.xlsx')]
+        archivos_xlsx = [archivo for archivo in os.listdir(carpeta_xlsx) if archivo.endswith('.xlsx') and not archivo.endswith('s.xlsx')]
 
         for archivo_xlsx in archivos_xlsx:
             try:
@@ -42,7 +42,7 @@ def Sanitize(xlsx_save_path):
                     if inicio is not None and final is not None:
                         new_df = df.iloc[inicio:final + 1, :]
                         spell_df = new_df.applymap(spell_check)
-                        spell_df.to_excel(ruta_parcial + f'_tab{i}.xlsx')
+                        spell_df.to_excel(ruta_parcial + f'_tab{i}_s.xlsx')
                         #temp = os.path.join('/content/', ruta_parcial + f'_tab{i}.xlsx')
                         #!cp {temp} {carpeta_xlsx}
                         #api mira esto aca y decide como quieres que guarde
