@@ -63,10 +63,12 @@ class MainWindow(QMainWindow):
             cpage_avaible = read_binfile_from_tokenhash(token_hash)
             self.ui.label_3.setText(f'Paginas disponibles: {cpage_avaible}')
 
-            if cpage_avaible > 10: 
-                self.ui.label_3.setStyleSheet("color: green")
-            else:
+            if cpage_avaible <= (1000 * .10): 
                 self.ui.label_3.setStyleSheet("color: red")
+            elif cpage_avaible <= (1000 * .30):
+                self.ui.label_3.setStyleSheet("color: yellow")
+            else:
+                self.ui.label_3.setStyleSheet("color: green")    
                     
             self.user_key = cpage_avaible
 
