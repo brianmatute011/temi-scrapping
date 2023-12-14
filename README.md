@@ -7,31 +7,12 @@ Requisitos Previos
 Antes de utilizar esta aplicación, asegúrate de tener instaladas las siguientes dependencias:
 
     Python 3.x
-    pdftables_api (puedes instalarlo utilizando pip install pdftables-api)
+    'numpy>=1.18.0',
+    'pandas>=1.0.0',
+    'PyMuPDF>=1.18.14',
+    'autocorrect>=1.0.0',
+    'pdftables_api @ https://github.com/pdftables/python-pdftables-api/archive/master.tar.gz',
 
-Configuración
-
-    Registra una cuenta en pdftables.com y obtén tu clave de API.
-    Copia la clave de API en el archivo de configuración config.json:
-
-json
-
-{
-  "api_key": "tu_clave_de_api_aqui"
-}
-
-Uso
-
-bash
-
-python extract_tables.py input.pdf
-
-Reemplaza input.pdf con la ruta de tu archivo PDF de origen. El resultado se guardará en un archivo CSV en el mismo directorio.
-Ejemplo
-
-bash
-
-python extract_tables.py ejemplo.pdf
 
 Contribuciones
 
