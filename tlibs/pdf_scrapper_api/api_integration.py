@@ -73,7 +73,7 @@ class user_pdftables:
                         
                     except Exception as e:
                         print(f"Error converting '{file}' to Excel: {e}")
-                        
+
                     finally:
                         pdf_document.close()    
                                                   

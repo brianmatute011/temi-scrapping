@@ -9,5 +9,6 @@ tlibs/bindata/
 **/*.pdf
 **/*.csv
 **/*.xlsx
-
+testdialoglic.py
 test.py
+*.ui
