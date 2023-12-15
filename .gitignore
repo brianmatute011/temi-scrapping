@@ -12,3 +12,4 @@ tlibs/bindata/
 testdialoglic.py
 test.py
 *.ui
+*.ipynb
