@@ -2,18 +2,18 @@ import pandas as pd
 import os
 from autocorrect import Speller
 
-def find_key(palabra, datos):
-    for i, fila in datos.iterrows():
-        for columna, valor in fila.items():
-            valor = str(valor)
-            if palabra in valor:
+def find_key(word, data):
+    for i, row in data.iterrows():
+        for column, value in row.items():
+            value = str(value)
+            if word in value:
                 return i
 
-def find_key_last(palabra, datos, indice):
-    for i, fila in datos.iloc[indice:].iterrows():
-        for columna, valor in fila.items():
-            valor = str(valor)
-            if palabra == valor:
+def find_key_last(word, data, index):
+    for i, row in data.iloc[index:].iterrows():
+        for column, value in row.items():
+            value = str(value)
+            if word == value:
                 return i
 
 def spell_check(string):
@@ -21,36 +21,35 @@ def spell_check(string):
     string = str(string)
     return spell(string)
 
-def Sanitize(xlsx_save_path):
+def sanitize(xlsx_save_path):
     try:
-        carpeta_xlsx = xlsx_save_path
-        archivos_xlsx = [archivo for archivo in os.listdir(carpeta_xlsx) if archivo.endswith('.xlsx') and not archivo.endswith('s.xlsx')]
+        xlsx_folder = xlsx_save_path
+        xlsx_files = [file for file in os.listdir(xlsx_folder) if file.endswith('.xlsx') and not file.endswith('s.xlsx')]
 
-        for archivo_xlsx in archivos_xlsx:
+        for xlsx_file in xlsx_files:
             try:
-                ruta_completa_xlsx = os.path.join(carpeta_xlsx, archivo_xlsx)
-                df = pd.read_excel(ruta_completa_xlsx)
-                ruta_parcial = archivo_xlsx[:-5]
+                full_path_xlsx = os.path.join(xlsx_folder, xlsx_file)
+                df = pd.read_excel(full_path_xlsx)
+                partial_path = xlsx_file[:-5]
 
-                palabras_clave = ['EQUIPO', 'MANO DE OBRA', 'MATERIALES', 'TRANSPORTE']
-                palabras_clave2 = ['SUBTOTAL M', 'SUBTOTAL N', 'SUBTOTAL O', 'SUBTOTAL P']
-                palabras_clave3 = ['PARCIAL M', 'PARCIAL N', 'PARCIAL O', 'PARCIAL P']
+                keywords = ['EQUIPO', 'MANO DE OBRA', 'MATERIALES', 'TRANSPORTE']
+                keywords2 = ['SUBTOTAL M', 'SUBTOTAL N', 'SUBTOTAL O', 'SUBTOTAL P']
+                keywords3 = ['PARCIAL M', 'PARCIAL N', 'PARCIAL O', 'PARCIAL P']
 
-                for i in range(0, len(palabras_clave)):
-                    inicio = find_key(palabras_clave[i], df)
-                    final = find_key_last(palabras_clave2[i], df, inicio)
-                    if inicio is not None and final is not None:
-                        new_df = df.iloc[inicio:final + 1, :]
+                for i in range(0, len(keywords)):
+                    start = find_key(keywords[i], df)
+                    end = find_key_last(keywords2[i], df, start)
+                    if start is not None and end is not None:
+                        new_df = df.iloc[start:end + 1, :]
                         spell_df = new_df.applymap(spell_check)
-                        spell_df.to_excel(ruta_parcial + f'_tab{i}_s.xlsx')
-                        #temp = os.path.join('/content/', ruta_parcial + f'_tab{i}.xlsx')
-                        #!cp {temp} {carpeta_xlsx}
-                        #api mira esto aca y decide como quieres que guarde
+                        spell_df.to_excel(partial_path + f'_tab{i}_s.xlsx')
+                        #temp = os.path.join('/content/', partial_path + f'_tab{i}.xlsx')
+                        #!cp {temp} {xlsx_folder}
+                        #api look at this and decide how you want it to save
                     else:
-                        print(f"No se encontraron claves para {palabras_clave[i]} en {archivo_xlsx}")
+                        print(f"No keys found for {keywords[i]} in {xlsx_file}")
             except Exception as e:
-                print(f"Error procesando el archivo {archivo_xlsx}: {str(e)}")
+                print(f"Error processing file {xlsx_file}: {str(e)}")
 
     except Exception as e:
-        print(f"Error general: {str(e)}")
-      
+        print(f"General error: {str(e)}")
