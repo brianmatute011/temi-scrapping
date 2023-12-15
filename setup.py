@@ -34,7 +34,7 @@ setup(
     ],
     entry_points={
         'console_scripts': [
-            'pdf_scrapper=pdf_scrapper_api.scripts.main:main',
+            'pdf_scrapper=main.py:main',
         ],
     },
     python_requires='>=3.6',
