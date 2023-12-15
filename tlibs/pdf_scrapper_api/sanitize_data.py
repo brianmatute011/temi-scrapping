@@ -46,21 +46,23 @@ def sanitize(xlsx_save_path):
 
                 # Iterate over each set of keywords
                 for i in range(0, len(keywords)):
-                    # Find the start and end positions of the keywords
-                    start = find_key(keywords[i], df)
-                    end = find_key_last(keywords2[i], df, start)
-                    
-                    # Check if both keys were found
-                    if start is not None and end is not None:
-                        # Select a subset of data
-                        new_df = df.iloc[start:end + 1, :]
-                        # Apply spell checking to the subset of data
-                        spell_df = new_df.applymap(spell_check)
-                        # Save the subset of data to a new Excel file
-                        spell_df.to_excel(partial_path + f'_tab{i}_s.xlsx')
-                    else:
-                        # Print a message if both keys are not found
-                        print(f"No keys found for {keywords[i]} in {xlsx_file}")
+                    sanitized_file_path = os.path.join(xlsx_folder, f"{partial_path}_tab{i}_s.xlsx")
+                    if not os.path.exists(sanitized_file_path):
+                        # Find the start and end positions of the keywords
+                        start = find_key(keywords[i], df)
+                        end = find_key_last(keywords2[i], df, start)
+                        
+                        # Check if both keys were found
+                        if start is not None and end is not None:
+                            # Select a subset of data
+                            new_df = df.iloc[start:end + 1, :]
+                            # Apply spell checking to the subset of data
+                            spell_df = new_df.applymap(spell_check)
+                            # Save the subset of data to a new Excel file
+                            spell_df.to_excel(partial_path + f'_tab{i}_s.xlsx')
+                        else:
+                            # Print a message if both keys are not found
+                            print(f"No keys found for {keywords[i]} in {xlsx_file}")
             except Exception as e:
                 # Handle errors when processing individual files
                 print(f"Error processing file {xlsx_file}: {str(e)}")
