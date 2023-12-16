@@ -10,7 +10,7 @@ def find_key(word, data):
             if word in value:
                 return i
 
-# Function to find the firs row containing the keyword from a given index
+# Function to find the first row containing the keyword from a given index
 def find_key_last(word, data, index):
     for i, row in data.iloc[index:].iterrows():
         for column, value in row.items():
