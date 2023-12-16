@@ -6,7 +6,6 @@ setup(
     author='Alphax',
     author_email='brianmatute011@gmail.com',
     description='Una app para extraer información de PDFs',
-    url='https://github.com/brianmatute011/temi-scrapping',
     packages=find_packages(),
     install_requires=[
         'numpy>=1.18.0',
