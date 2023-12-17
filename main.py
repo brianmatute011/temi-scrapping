@@ -31,7 +31,7 @@ class LicenseDialog(QMainWindow):
 
         license_text = self.ui.lineEdit.text().strip()
         cli_service = apin.user_pdftables(license_text)
-        count_page_avaibles =  cli_service.remain()
+        count_page_avaibles = cli_service.remain()
 
         if not count_page_avaibles is None:
             self.ui.label.setText(f'Licencia aceptada: {count_page_avaibles} paginas disponibles.')
