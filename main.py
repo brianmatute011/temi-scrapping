@@ -134,7 +134,6 @@ class MainWindow(QMainWindow):
             else:
                 return
             
-            
         self.user_cpage_avaible = cpage_avaible
         self.user_key = rbin_file[1]
         print(f'User key:  {self.user_key}')
