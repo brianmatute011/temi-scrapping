@@ -66,6 +66,7 @@ def read_binfile_from_tokenhash(tk_hash: str, bin_path = './lic'):
     try:
         if os.path.exists(bin_path):
             file_path = os.path.join(bin_path, f"{tk_hash}")
+            license_text = ""
 
             try:
                 with open(file_path, 'rb') as file:
