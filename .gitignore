@@ -18,3 +18,10 @@ aviblecomboBox.py
 resources/
 **/__pycache__
 *.pyc
+tlibs/pdf_scrapper_api/__pycache__/__init__.cpython-311.pyc
+*.pyc
+tlibs/pdf_scrapper_api/__pycache__/api_integration.cpython-311.pyc
+tlibs/pdf_scrapper_api/__pycache__/__init__.cpython-311.pyc
+qtlibs/__pycache__/utilstemi.cpython-311.pyc
+qtlibs/__pycache__/__init__.cpython-311.pyc
+app/__pycache__/temi_dialog_lic.cpython-311.pyc
