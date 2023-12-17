@@ -5,7 +5,7 @@
 tlibs/data/
 tlibs/bindata/
 
-
+/**/__pycache__
 **/*.pdf
 **/*.csv
 **/*.xlsx
