@@ -13,3 +13,6 @@ testdialoglic.py
 test.py
 *.ui
 *.ipynb
+combotest.py
+aviblecomboBox.py
+resources/

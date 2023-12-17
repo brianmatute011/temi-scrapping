@@ -13,7 +13,21 @@ class user_pdftables:
         except Exception as e:
             print(f"Error getting number of pages remaining: {e}")
             return None
+    
+    def count_page_document(input_file: str):
+        try:
+            if not input_file.lower().endswith('.pdf'):
+                raise Exception(f"Ignoring '{input_file}': not a PDF file.")
+            
+            pdf_document = fitz.open(input_file)
+            page_count = pdf_document.page_count
+            pdf_document.close()
+            return page_count
 
+        except Exception as e:
+            print(f"Error count document pages: {e}")
+            return None
+        
     def extract_pages(self, input_file: str, output_directory=None, **kwargs):
         try:
             if output_directory is None:
@@ -82,4 +96,4 @@ class user_pdftables:
 
         except Exception as e:
             print(f"Error processing files: {e}")
-            return False
+            return False     

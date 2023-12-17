@@ -12,8 +12,14 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(836, 564)
-        MainWindow.setStyleSheet("/* MenuToolbar Style */\n"
+        MainWindow.resize(678, 139)
+        MainWindow.setMinimumSize(QtCore.QSize(678, 139))
+        MainWindow.setStyleSheet("QMainWindow::title {\n"
+"    background-color: #ffffff; /* Color blanco para la barra de título */\n"
+"    color: #000000; /* Color del texto en la barra de título */\n"
+"}\n"
+"\n"
+"/* MenuToolbar Style */\n"
 "QMenuBar {\n"
 "    background-color: #F0F0F0; \n"
 "    border: 1px solid #CCCCCC; \n"
@@ -28,25 +34,32 @@ class Ui_MainWindow(object):
 "QAction {\n"
 "    border: 1px solid #CCCCCC; \n"
 "}\n"
+"\n"
+"#pushButton {\n"
+"    background-color: #1DA1F2; /* Color azul similar al de Twitter */\n"
+"    color: #ffffff; /* Texto en color blanco */\n"
+"    border-style: solid;\n"
+"    border-width: 1px;\n"
+"    border-color: #1DA1F2;\n"
+"    border-radius: 5px;\n"
+"    padding: 5px 10px;\n"
+"}\n"
+"\n"
+"#pushButton:hover {\n"
+"    background-color: #0E71A7; /* Cambio de color al pasar el cursor */\n"
+"}\n"
+"\n"
+"#pushButton:pressed {\n"
+"    background-color: #0A5A7C; /* Cambio de color al presionar el botón */\n"
+"}\n"
+"\n"
+"\n"
+"\n"
 "")
         self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.horizontalLayoutWidget = QtWidgets.QWidget(parent=self.centralwidget)
-        self.horizontalLayoutWidget.setGeometry(QtCore.QRect(3, 33, 830, 420))
-        self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
-        self.horizontalLayout = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget)
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
-        self.horizontalLayout.setObjectName("horizontalLayout")
-        self.scrollArea = QtWidgets.QScrollArea(parent=self.horizontalLayoutWidget)
-        self.scrollArea.setWidgetResizable(True)
-        self.scrollArea.setObjectName("scrollArea")
-        self.scrollAreaWidgetContents = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 826, 416))
-        self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
-        self.scrollArea.setWidget(self.scrollAreaWidgetContents)
-        self.horizontalLayout.addWidget(self.scrollArea)
         self.horizontalLayoutWidget_2 = QtWidgets.QWidget(parent=self.centralwidget)
-        self.horizontalLayoutWidget_2.setGeometry(QtCore.QRect(1, 461, 540, 30))
+        self.horizontalLayoutWidget_2.setGeometry(QtCore.QRect(4, 63, 660, 30))
         self.horizontalLayoutWidget_2.setObjectName("horizontalLayoutWidget_2")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_2)
         self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
@@ -54,11 +67,8 @@ class Ui_MainWindow(object):
         self.pushButton = QtWidgets.QPushButton(parent=self.horizontalLayoutWidget_2)
         self.pushButton.setObjectName("pushButton")
         self.horizontalLayout_2.addWidget(self.pushButton)
-        self.pushButton_2 = QtWidgets.QPushButton(parent=self.horizontalLayoutWidget_2)
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.horizontalLayout_2.addWidget(self.pushButton_2)
         self.horizontalLayoutWidget_3 = QtWidgets.QWidget(parent=self.centralwidget)
-        self.horizontalLayoutWidget_3.setGeometry(QtCore.QRect(4, 0, 580, 30))
+        self.horizontalLayoutWidget_3.setGeometry(QtCore.QRect(4, 0, 661, 30))
         self.horizontalLayoutWidget_3.setObjectName("horizontalLayoutWidget_3")
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.horizontalLayoutWidget_3)
         self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
@@ -76,12 +86,20 @@ class Ui_MainWindow(object):
         self.label_3.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
         self.label_3.setObjectName("label_3")
         self.horizontalLayout_3.addWidget(self.label_3)
+        self.comboBox = QtWidgets.QComboBox(parent=self.horizontalLayoutWidget_3)
+        self.comboBox.setEditable(False)
+        self.comboBox.setMaxVisibleItems(14)
+        self.comboBox.setObjectName("comboBox")
+        self.comboBox.addItem("")
+        self.comboBox.addItem("")
+        self.comboBox.addItem("")
+        self.horizontalLayout_3.addWidget(self.comboBox)
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(parent=MainWindow)
         self.statusbar.setObjectName("statusbar")
         MainWindow.setStatusBar(self.statusbar)
         self.menubar = QtWidgets.QMenuBar(parent=MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 836, 23))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 678, 23))
         self.menubar.setObjectName("menubar")
         self.menufile = QtWidgets.QMenu(parent=self.menubar)
         self.menufile.setObjectName("menufile")
@@ -112,11 +130,13 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "temi-scrapped"))
-        self.pushButton.setText(_translate("MainWindow", "Procesar"))
-        self.pushButton_2.setText(_translate("MainWindow", "Importar"))
+        self.pushButton.setText(_translate("MainWindow", "Comenzar"))
         self.label.setText(_translate("MainWindow", "Sin archivo"))
-        self.label_2.setText(_translate("MainWindow", "-"))
+        self.label_2.setText(_translate("MainWindow", "No soportado"))
         self.label_3.setText(_translate("MainWindow", "-"))
+        self.comboBox.setItemText(0, _translate("MainWindow", "Preprocesar"))
+        self.comboBox.setItemText(1, _translate("MainWindow", "Importar a BD"))
+        self.comboBox.setItemText(2, _translate("MainWindow", "Importar a Excel"))
         self.menufile.setTitle(_translate("MainWindow", "File"))
         self.menuLicense.setTitle(_translate("MainWindow", "License"))
         self.menuAbout.setTitle(_translate("MainWindow", "About"))

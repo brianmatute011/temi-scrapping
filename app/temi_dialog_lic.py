@@ -15,14 +15,31 @@ class Ui_Form(object):
         Form.resize(344, 119)
         Form.setMinimumSize(QtCore.QSize(344, 119))
         Form.setMaximumSize(QtCore.QSize(344, 119))
+        Form.setStyleSheet("#pushButton {\n"
+"    background-color: #1DA1F2; /* Color azul similar al de Twitter */\n"
+"    color: #ffffff; /* Texto en color blanco */\n"
+"    border-style: solid;\n"
+"    border-width: 1px;\n"
+"    border-color: #1DA1F2;\n"
+"    border-radius: 5px;\n"
+"    padding: 5px 10px;\n"
+"}\n"
+"\n"
+"#pushButton:hover {\n"
+"    background-color: #0E71A7; /* Cambio de color al pasar el cursor */\n"
+"}\n"
+"\n"
+"#pushButton:pressed {\n"
+"    background-color: #0A5A7C; /* Cambio de color al presionar el botón */\n"
+"}\n"
+"")
         self.verticalLayoutWidget = QtWidgets.QWidget(parent=Form)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(28, 20, 290, 80))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(28, 20, 290, 94))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
         self.label = QtWidgets.QLabel(parent=self.verticalLayoutWidget)
-        self.label.setText("")
         self.label.setObjectName("label")
         self.verticalLayout.addWidget(self.label)
         self.lineEdit = QtWidgets.QLineEdit(parent=self.verticalLayoutWidget)
@@ -38,6 +55,7 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "temi: license"))
+        self.label.setText(_translate("Form", "Inserta la clave"))
         self.pushButton.setText(_translate("Form", "Establecer"))
 
 

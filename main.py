@@ -1,10 +1,13 @@
 import sys, os, pickle, winreg, hashlib, socket
-from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QHBoxLayout
+from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, QFileDialog, QMessageBox
 from PyQt6.QtGui import QStandardItemModel
 from app.temi import Ui_MainWindow
-from qtlibs.utilstemi import open_file_dialog, saved_token, get_tokenhash, read_binfile_from_tokenhash
+from qtlibs.utilstemi import saved_token, get_tokenhash, read_binfile_from_tokenhash
 from app.temi_dialog_lic import Ui_Form
 from tlibs.pdf_scrapper_api import api_integration as apin
+
+
+
 
 
 class LicenseDialog(QMainWindow):
@@ -35,6 +38,7 @@ class LicenseDialog(QMainWindow):
             self.ui.label.setStyleSheet("color: green")
             saved_token(license_text)
             window.update_serviceinfo()
+            window.user_key = license_text
                     
             
         else:
@@ -49,18 +53,75 @@ class MainWindow(QMainWindow):
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.user_key = None
+        self.user_cpage_avaible = None
+        self.updftable_count_from_doc = None
+        self.user_pdft = None
+        self.current_path_file = ""
         self.license_dialog = LicenseDialog()
 
-        self.ui.actionOpen_file.triggered.connect(open_file_dialog)
-        self.ui.actionSet_License.triggered.connect(self.license_dialog.show)
+        self.ui.actionOpen_file.triggered.connect(self.open_file_dialog)
+        self.ui.actionSet_License.triggered.connect(self.open_license_dialog)
+        self.ui.pushButton.clicked.connect(self.button_start)
 
         self.setup_layouts()
         self.update_serviceinfo()
+    
+
+    def button_start(self):
+        #
+        if self.ui.label_2.text().strip() == "No soportado":
+            self.ui.comboBox.setEnabled(False)
+            QMessageBox.warning(self, "Alerta", "Archivo no soportado.")
+            return       
+        print(f'{self.ui.comboBox.currentIndex()} -> {self.ui.comboBox.count()}: {self.current_path_file}')
+        
+        # Get user pdfptable instance from current key
+        cli_service = self.user_pdft
+        
+        #Preprocess option comboBox enabled
+        if self.ui.comboBox.currentIndex() == 0:
+            cli_service.extract_pages(self.current_path_file)
+            parent_path = os.path.dirname(self.current_path_file)
+            cli_service.convert_pages_to_excel(f'{parent_path}/')
+            QMessageBox.information(self, "Terminado", "Los Archivos fueron preprocesados.")
+        
+        #Upgrade service information
+        self.update_serviceinfo()    
+
+
+
+    def open_license_dialog(self):
+        self.license_dialog.show()
+
+    def open_file_dialog(self):
+        file_dialog = QFileDialog()
+        file_dialog.setFileMode(QFileDialog.FileMode.ExistingFile)
+        if file_dialog.exec():
+            base_file_names = file_dialog.selectedFiles()
+            # file_name = os.path.splitext(os.path.basename(base_file_names[0]))[0]
+
+            self.current_path_file = base_file_names[0]
+            self.updftable_count_from_doc = apin.user_pdftables.count_page_document(self.current_path_file)
+            self.ui.label.setText(f'Archivo seleccionado: {self.current_path_file}')
+            self.ui.label_2.setText(f'Pag. del archivo: {self.updftable_count_from_doc}')
+            
+            if self.updftable_count_from_doc is None:
+                self.ui.label_2.setText(f'No soportado')
+                self.ui.label_2.setStyleSheet("color: red")
+            elif self.updftable_count_from_doc > self.user_cpage_avaible:
+                self.ui.label_2.setStyleSheet("color: red")
+            else:
+                self.ui.label_2.setStyleSheet("color: green")   
+
+            print(f'Fselect: {base_file_names}   {self.updftable_count_from_doc}')
+            
+            # load_file_dialog(self, file_names[0])    
 
     def update_serviceinfo(self):
         token_hash = get_tokenhash()
         if not token_hash is None:
-            cpage_avaible = read_binfile_from_tokenhash(token_hash)
+            rbin_file =  read_binfile_from_tokenhash(token_hash)
+            cpage_avaible = rbin_file[0]
             self.ui.label_3.setText(f'Paginas disponibles: {cpage_avaible}')
 
             if not cpage_avaible is None:
@@ -71,9 +132,14 @@ class MainWindow(QMainWindow):
                 else:
                     self.ui.label_3.setStyleSheet("color: green")
             else:
-                return            
+                return
+            
+        self.user_cpage_avaible = cpage_avaible
+        self.user_key = rbin_file[1]
+        print(f'User key:  {self.user_key}')
+        self.user_pdft = apin.user_pdftables(self.user_key)                
 
-            self.user_key = cpage_avaible
+            
 
 
 
@@ -81,13 +147,12 @@ class MainWindow(QMainWindow):
         central_widget = self.ui.centralwidget
 
         # Get the widgets from the generated file
-        scroll_area = self.ui.scrollArea
+        #scroll_area = self.ui.scrollArea
         push_button = self.ui.pushButton
-        push_button_2 = self.ui.pushButton_2
         label = self.ui.label
         label_2 = self.ui.label_2
         label_3 = self.ui.label_3
-
+        combo_box = self.ui.comboBox
 
         # Create layouts and establish them
         main_layout = QVBoxLayout(central_widget)
@@ -95,16 +160,15 @@ class MainWindow(QMainWindow):
         top_labels = QHBoxLayout()
 
         main_layout.addLayout(top_labels)       
-        main_layout.addWidget(scroll_area)
+        #main_layout.addWidget(scroll_area)
         main_layout.addLayout(bottom_buttons_layout)
         
-
         bottom_buttons_layout.addWidget(push_button)
-        bottom_buttons_layout.addWidget(push_button_2)
 
         top_labels.addWidget(label)
         top_labels.addWidget(label_2)
         top_labels.addWidget(label_3)
+        top_labels.addWidget(combo_box)
 
        
                
