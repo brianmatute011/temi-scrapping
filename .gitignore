@@ -16,3 +16,4 @@ test.py
 combotest.py
 aviblecomboBox.py
 resources/
+**/__pycache__
