@@ -18,3 +18,4 @@ combotest.py
 aviblecomboBox.py
 resources/
 **/__pycache__
+*.pyc
