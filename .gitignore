@@ -8,6 +8,7 @@ tlibs/bindata/
 
 **/*.pdf
 **/*.csv
+**/*.pyc
 **/*.xlsx
 testdialoglic.py
 test.py
