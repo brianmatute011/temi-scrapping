@@ -10,7 +10,7 @@ def find_key(word, data):
             if word in value:
                 return i
 
-# Function to find the firs row containing the keyword from a given index
+# Function to find the first row containing the keyword from a given index
 def find_key_last(word, data, index):
     for i, row in data.iloc[index:].iterrows():
         for column, value in row.items():
@@ -45,22 +45,25 @@ def sanitize(xlsx_save_path):
                 keywords3 = ['PARCIAL M', 'PARCIAL N', 'PARCIAL O', 'PARCIAL P']
 
                 # Iterate over each set of keywords
-                for i in range(0, len(keywords)):
-                    # Find the start and end positions of the keywords
-                    start = find_key(keywords[i], df)
-                    end = find_key_last(keywords2[i], df, start)
-                    
-                    # Check if both keys were found
-                    if start is not None and end is not None:
-                        # Select a subset of data
-                        new_df = df.iloc[start:end + 1, :]
-                        # Apply spell checking to the subset of data
-                        spell_df = new_df.applymap(spell_check)
-                        # Save the subset of data to a new Excel file
-                        spell_df.to_excel(partial_path + f'_tab{i}_s.xlsx')
-                    else:
-                        # Print a message if both keys are not found
-                        print(f"No keys found for {keywords[i]} in {xlsx_file}")
+                for i in range(1, len(keywords) + 1 ):
+                    sanitized_file_path = os.path.join(xlsx_folder, f"{partial_path}_tab{i}_s.xlsx")
+                    if not os.path.exists(sanitized_file_path):
+                        # Find the start and end positions of the keywords
+                        start = find_key(keywords[i], df)
+                        end = find_key_last(keywords2[i], df, start)
+                        if final is None:
+                            end = find_key_last( keywords3[i], df, start )
+                        # Check if both keys were found
+                        if start is not None and end is not None:
+                            # Select a subset of data
+                            new_df = df.iloc[start:end + 1, :]
+                            # Apply spell checking to the subset of data
+                            spell_df = new_df.applymap(spell_check)
+                            # Save the subset of data to a new Excel file
+                            spell_df.to_excel(partial_path + f'_tab{i}_s.xlsx')
+                        else:
+                            # Print a message if both keys are not found
+                            print(f"No keys found for {keywords[i]} in {xlsx_file}")
             except Exception as e:
                 # Handle errors when processing individual files
                 print(f"Error processing file {xlsx_file}: {str(e)}")
