@@ -119,6 +119,7 @@ class MainWindow(QMainWindow):
 
     def update_serviceinfo(self):
         token_hash = get_tokenhash()
+        cpage_avaible = None
         if not token_hash is None:
             rbin_file =  read_binfile_from_tokenhash(token_hash)
             cpage_avaible = rbin_file[0]
@@ -134,6 +135,7 @@ class MainWindow(QMainWindow):
             else:
                 return
             
+
         self.user_cpage_avaible = cpage_avaible
         self.user_key = rbin_file[1]
         print(f'User key:  {self.user_key}')

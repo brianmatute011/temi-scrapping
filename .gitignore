@@ -8,6 +8,7 @@ tlibs/bindata/
 
 **/*.pdf
 **/*.csv
+**/*.pyc
 **/*.xlsx
 testdialoglic.py
 test.py
@@ -17,3 +18,4 @@ combotest.py
 aviblecomboBox.py
 resources/
 **/__pycache__
+*.pyc
