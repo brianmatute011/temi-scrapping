@@ -56,4 +56,15 @@ class mat_base:
         except Exception as e:
             print(f"Error fetching record by code: {e}")
             return None
-
+        
+    def fetch_by_description(self, description):
+        try:
+            query = "SELECT * FROM mat_base WHERE mat_description LIKE %s"
+            cursor = self.connection.connection.cursor()
+            cursor.execute(query, ('%' + description + '%',))
+            result = cursor.fetchall()
+            cursor.close()
+            return result
+        except Exception as e:
+            print(f"Error fetching records by description: {e}")
+            return []    
