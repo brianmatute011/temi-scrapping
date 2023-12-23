@@ -170,10 +170,12 @@ def Sanitize(xlsx_save_path):
                             if end is None:
                                 end = find_key_last(keyword_list3[i], df, start)
                             new_df = df.iloc[start:end + 1, :]
-                            spell_df = new_df.applymap(spell_check)
+                            new_df.to_excel(sanitized_file_path)
+                            
+                            #spell_df = new_df.applymap(spell_check)
 
                             # Save the sanitized DataFrame to a new Excel file
-                            spell_df.to_excel(sanitized_file_path)
+                            #spell_df.to_excel(sanitized_file_path)
 
             except Exception as inner_exception:
                 print(f"An error occurred while processing file {xlsx_file}: {inner_exception}")
