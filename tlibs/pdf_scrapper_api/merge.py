@@ -1,6 +1,6 @@
 import pandas as pd
 import os
-from temidb.connection import temidb_connection, mat_base
+from temidb.connection import temidb_connection, mat_base, equipment_base, salary_base_dollars
 
 def find_col( data, key ):
     for i, row in data.iterrows():
@@ -38,11 +38,65 @@ def app_equip( route ):
   df = pd.read_excel( route )
   result = []
 
+  desc_col = find_col( df, "EQUIPO" )
+  cant_col = find_col( df, "CANTIDAD" )
+  first_ro = find_row( df, "EQUIPO" )
+  last_row = find_row( df, "SUBTOTAL" )
+
+  temidb = temidb_connection(host="localhost", user="root", password="", database="temidb")
+  equipment_mat_base = equipment_base(connection=temidb)
+
+  for i, row in df.iterrows():
+    if i == first_ro or i == last_row:
+      continue
+    
+    for column, value in row.items():
+      value = str( value )
+      if desc_col == column:
+        temp = table_mat_base.fetch_by_description( value )
+        if temp is not None:
+          first_element, *_ = temp
+          result.append( first_element )
+        else:
+          result.append( None )
+      if cant_col == column:
+        result.append( value )
+
+  for i in range( len(result), 40 ):
+    result.append( None )
+
   return result
 
 def app_mobra( route ):
   df = pd.read_excel( route )
   result = []
+
+  desc_col = find_col( df, "MANO DE OBRA" )
+  cant_col = find_col( df, "CANTIDAD" )
+  first_ro = find_row( df, "MANO DE OBRA" )
+  last_row = find_row( df, "SUBTOTAL" )
+
+  temidb = temidb_connection(host="localhost", user="root", password="", database="temidb")
+  salary_base = salary_base_dollars(connection=temidb)
+
+  for i, row in df.iterrows():
+    if i == first_ro or i == last_row:
+      continue
+    
+    for column, value in row.items():
+      value = str( value )
+      if desc_col == column:
+        temp = salary_base.fetch_by_worker_category( value )
+        if temp is not None:
+          first_element, *_ = temp
+          result.append( first_element )
+        else:
+          result.append( None )
+      if cant_col == column:
+        result.append( value )
+  
+  for i in range( len(result), 40 ):
+    result.append( None )
 
   return result
 
@@ -65,13 +119,17 @@ def app_mater( route ):
     for column, value in row.items():
       value = str( value )
       if desc_col == column:
-        temp = table_mat_base.fetch_by_description( value )
-        if temp is not None:
-          result.append( temp[0] )
-        else:
-          result.append( None )
+          temp = equipment_mat_base.fetch_by_description( value )
+          if temp is not None:
+            first_element, *_ = temp
+            result.append( first_element )
+          else:
+            result.append( None )
       if cant_col == column:
         result.append( value )
+
+  for i in range( len(result), 40 ):
+    result.append( None )
 
   return result
 
@@ -84,7 +142,7 @@ def app_trans( route ):
 
   return result
 
-def function( source  ):
+def merge( source  ):
     keywords = ['FIRST','EQUIPO', 'MANO DE OBRA', 'MATERIALES', 'TRANSPORTE']
     xlsx_folder = source
 
