@@ -64,7 +64,7 @@ class mat_base:
             cursor.execute(query, ('%' + description + '%',))
             result = cursor.fetchall()
             cursor.close()
-            return result[0]
+            return result
         except Exception as e:
             print(f"Error fetching records by description: {e}")
             return []    
