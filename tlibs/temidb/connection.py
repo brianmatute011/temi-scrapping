@@ -122,4 +122,59 @@ class equipment_base:
             return result[0] if result else None
         except Exception as e:
             print(f"Error fetching record by code: {e}")
-            return None            
+            return None
+class salary_base_dollars:
+    def __init__(self, connection):
+        self.connection = connection
+        try:
+            self.connection.connect()
+        except Exception as e:
+            print(f"Error connecting to database: {e}")
+
+    def fetch_all(self):
+        try:
+            query = "SELECT * FROM salary_base_dollars"
+            cursor = self.connection.connection.cursor()
+            cursor.execute(query)
+            result = cursor.fetchall()
+            cursor.close()
+            return result
+        except Exception as e:
+            print(f"Error fetching all records: {e}")
+            return []
+
+    def fetch_by_code(self, code):
+        try:
+            query = "SELECT * FROM salary_base_dollars WHERE code = %s"
+            cursor = self.connection.connection.cursor()
+            cursor.execute(query, (code,))
+            result = cursor.fetchall()
+            cursor.close()
+            return result[0] if result else None
+        except Exception as e:
+            print(f"Error fetching record by code: {e}")
+            return None
+        
+    def fetch_by_worker_category(self, description):
+        try:
+            query = "SELECT * FROM salary_base_dollars WHERE worker_category LIKE %s"
+            cursor = self.connection.connection.cursor()
+            cursor.execute(query, ('%' + description + '%',))
+            result = cursor.fetchall()
+            cursor.close()
+            return result
+        except Exception as e:
+            print(f"Error fetching records by description: {e}")
+            return []
+        
+    def fetch_by_identifier(self, cpc):
+        try:
+            query = "SELECT * FROM salary_base_dollars WHERE identifier = %s"
+            cursor = self.connection.connection.cursor()
+            cursor.execute(query, (cpc,))
+            result = cursor.fetchall()
+            cursor.close()
+            return result[0] if result else None
+        except Exception as e:
+            print(f"Error fetching record by code: {e}")
+            return None                    
