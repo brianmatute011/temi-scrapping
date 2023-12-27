@@ -10,7 +10,7 @@ def handle_exceptions(func):
             return func(*args, **kwargs)
         except Exception as e:
             print(f"An error occurred: {e}")
-    return wrappe
+    return wrapper
 
 # Define the spell check function 
 @handle_exceptions

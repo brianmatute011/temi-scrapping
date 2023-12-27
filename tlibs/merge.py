@@ -53,8 +53,8 @@ def app_equip( route ):
     for column, value in row.items():
       value = str( value )
       if desc_col == column:
-        temp = table_mat_base.fetch_by_description( value )
-        if temp is not None:
+        temp = equipment_mat_base.fetch_by_description( value )
+        if temp:
           first_element, *_ = temp
           result.append( first_element )
         else:
@@ -87,7 +87,7 @@ def app_mobra( route ):
       value = str( value )
       if desc_col == column:
         temp = salary_base.fetch_by_worker_category( value )
-        if temp is not None:
+        if temp:
           first_element, *_ = temp
           result.append( first_element )
         else:
@@ -119,8 +119,8 @@ def app_mater( route ):
     for column, value in row.items():
       value = str( value )
       if desc_col == column:
-          temp = equipment_mat_base.fetch_by_description( value )
-          if temp is not None:
+          temp = table_mat_base.fetch_by_description( value )
+          if temp:
             first_element, *_ = temp
             result.append( first_element )
           else:
@@ -142,27 +142,23 @@ def app_trans( route ):
 
   return result
 
-def merge( source  ):
+def merge( source_path, xlsx_file  ):
     keywords = ['FIRST','EQUIPO', 'MANO DE OBRA', 'MATERIALES', 'TRANSPORTE']
-    xlsx_folder = source
+    # 'C:/Users/Brian/Documents/GitHub/temi-scrapping/tlibs/temp/APUS lite_page_1.xlsx'
+    
+    global_list = []
+    for i in range(0, len(keywords ) ):
+        route = os.path.join(source_path, f'{xlsx_file[:-5]}_tab{i}_s.xlsx' ) 
+        
+        if i == 0:
+            global_list = global_list + app_first( route )
+        if i == 1:
+            global_list = global_list + app_equip( route ) 
+        if i == 2:
+            global_list = global_list + app_mobra( route )
+        if i == 3:
+            global_list = global_list + app_mater( route )
+        if i == 4:
+            global_list = global_list + app_trans( route )
 
-    xlsx_files = [archivo for archivo in os.listdir(xlsx_folder) if archivo.endswith('.xlsx') and not archivo.endswith('s.xlsx')]
-
-    line = []
-
-    for xlsx_file in xlsx_files:
-        for i in range(0, len(keywords ) ):
-            route = os.path.join(xlsx_folder, f'{xlsx_file[:-5]}_tab{i}_s.xlsx' ) 
-            
-            if i == 0:
-                line.append( app_first( route ) )
-            if i == 1:
-                line.append( app_equip( route ) )
-            if i == 2:
-                line.append( app_mobra( route ) )
-            if i == 3:
-                line.append( app_mater( route ) )
-            if i == 4:
-                line.append( app_trans( route ) )
-
-    return line
+    return global_list
