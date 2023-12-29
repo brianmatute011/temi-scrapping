@@ -56,7 +56,7 @@ def app_equip( route ):
         temp = equipment_mat_base.fetch_by_description( value )
         if temp:
           first_element, *_ = temp
-          result.append( first_element )
+          result.append( first_element[0] )
         else:
           result.append( None )
       if cant_col == column:
@@ -89,7 +89,7 @@ def app_mobra( route ):
         temp = salary_base.fetch_by_worker_category( value )
         if temp:
           first_element, *_ = temp
-          result.append( first_element )
+          result.append( first_element[0] )
         else:
           result.append( None )
       if cant_col == column:
@@ -122,7 +122,7 @@ def app_mater( route ):
           temp = table_mat_base.fetch_by_description( value )
           if temp:
             first_element, *_ = temp
-            result.append( first_element )
+            result.append( first_element[0] )
           else:
             result.append( None )
       if cant_col == column:
