@@ -1,6 +1,6 @@
 import pandas as pd
 import os
-from temidb.connection import temidb_connection, mat_base, equipment_base, salary_base_dollars
+from tlibs.temidb.connection import temidb_connection, mat_base, equipment_base, salary_base_dollars
 
 def find_col( data, key ):
     for i, row in data.iterrows():

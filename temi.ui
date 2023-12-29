@@ -141,11 +141,6 @@ QAction {
        </item>
        <item>
         <property name="text">
-         <string extracomment="Importe a su BD las tablas resultantes">Importar a BD</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
          <string extracomment="Importe las tablas preprocesadas a Excel">Importar a Excel</string>
         </property>
        </item>

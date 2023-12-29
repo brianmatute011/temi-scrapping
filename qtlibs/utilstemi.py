@@ -1,7 +1,7 @@
 from PyQt6 import QtWidgets
 from PyQt6.QtWidgets import QFileDialog
 from PyQt6.QtGui import  QStandardItem, QStandardItemModel
-from tlibs.pdf_scrapper_api import api_integration as apin
+from tlibs.pdf_scrapper_api import api_integration as apin, sanitize_data as sd
 
 import os, pickle, hashlib, winreg
 
@@ -87,10 +87,7 @@ def read_binfile_from_tokenhash(tk_hash: str, bin_path = './lic'):
     except OSError as e:
         print(f"Error de sistema: {e}")
     
-    return [temp_cli.remain(), license_text]    
-               
-
-
+    return [temp_cli.remain(), license_text]   
 
 
 

@@ -1,4 +1,6 @@
 import mysql.connector
+import os
+import pandas as pd
 
 class temidb_connection:
     def __init__(self, host, user, password, database):
@@ -178,3 +180,49 @@ class salary_base_dollars:
         except Exception as e:
             print(f"Error fetching record by code: {e}")
             return None                    
+class result:
+    def __init__(self, connection):
+        self.connection = connection
+        try:
+            self.connection.connect()
+        except Exception as e:
+            print(f"Error connecting to database: {e}")
+    
+    def fetch_all(self):
+        try:
+            query = "SELECT * FROM result"
+            cursor = self.connection.connection.cursor()
+            cursor.execute(query)
+            result = cursor.fetchall()
+            cursor.close()
+            return result
+        except Exception as e:
+            print(f"Error fetching all records: {e}")
+            return []        
+    
+    def insert_result_from_recoverylist(self, _recovery_list):
+        sql_insert = f"INSERT INTO result VALUES ({', '.join(['%s']*(208))})"
+        try:
+            cursor = self.connection.connection.cursor()
+            for sublist in _recovery_list:
+                purified_sublist_s1 = [value if not (isinstance(value, float) or value == 'nan') else None  for value in sublist]
+                purified_tuple_s2 = tuple(0 if index > 7 and value == None else value for index, value in enumerate(purified_sublist_s1))
+                print(purified_tuple_s2)
+                cursor.execute(sql_insert, purified_tuple_s2)
+            self.connection.connection.commit()  
+            cursor.close()  
+        except Exception as e:
+            print(f'Error insert into result table: {e}')
+
+    def export_to_excel(self, filename):
+        try:
+            query = "SELECT * FROM result"
+            df = pd.read_sql(query, self.connection.connection)
+
+            if os.path.isfile(filename):
+                os.remove(filename)
+
+            df.to_excel(filename, index=False, header=True)
+            print(f"Data exported to {filename} successfully.") 
+        except Exception as e:
+            print(f"Error exporting data to Excel: {e}")

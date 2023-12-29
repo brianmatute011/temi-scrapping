@@ -5,6 +5,8 @@ from app.temi import Ui_MainWindow
 from qtlibs.utilstemi import saved_token, get_tokenhash, read_binfile_from_tokenhash
 from app.temi_dialog_lic import Ui_Form
 from tlibs.pdf_scrapper_api import api_integration as apin
+from tlibs import utilslibs as ul
+from tlibs.temidb import connection as con
 
 
 
@@ -68,13 +70,42 @@ class MainWindow(QMainWindow):
     
 
     def button_start(self):
-        #
-        if self.ui.label_2.text().strip() == "No soportado":
+        self.ui.comboBox.setEnabled(True)
+        
+    
+        if self.ui.comboBox.currentIndex() == 1:
+            temidb = con.temidb_connection(host="localhost", user="root", password="", database="temidb")
+            result_table = con.result(connection=temidb)
+            parent_path = os.path.dirname(self.current_path_file)
+            
+            if parent_path == '':
+                print(f'{parent_path} => parent_path')
+                
+                #Redirecting to the default document path
+                default_documents_path = os.path.join(os.path.expanduser("~"), "Documents")
+
+                excel_path = os.path.join(default_documents_path, "RESULT", "result.xlsx")
+                if not os.path.exists(os.path.join(default_documents_path, "RESULT")):
+                    os.makedirs(os.path.join(default_documents_path, "RESULT"))
+                
+                result_table.export_to_excel(excel_path)
+            else:
+                excel_path = os.path.join(parent_path, "RESULT", "result.xlsx")
+
+                if not os.path.exists(os.path.join(parent_path, "RESULT")):
+                    os.makedirs(os.path.join(parent_path, "RESULT"))
+                    
+                result_table.export_to_excel(excel_path)     
+
+            QMessageBox.information(self, "Terminado", "Importacion Exitosa.")
+
+        
+        if self.ui.label_2.text().strip() == "No soportado" and self.ui.comboBox.currentIndex != 2:
             self.ui.comboBox.setEnabled(False)
             QMessageBox.warning(self, "Alerta", "Archivo no soportado.")
             return       
-        print(f'{self.ui.comboBox.currentIndex()} -> {self.ui.comboBox.count()}: {self.current_path_file}')
         
+        print(f'{self.ui.comboBox.currentIndex()} -> {self.ui.comboBox.count()}: {self.current_path_file}')
         # Get user pdfptable instance from current key
         cli_service = self.user_pdft
         
@@ -83,7 +114,14 @@ class MainWindow(QMainWindow):
             cli_service.extract_pages(self.current_path_file)
             parent_path = os.path.dirname(self.current_path_file)
             cli_service.convert_pages_to_excel(f'{parent_path}/')
+            recovery_list = ul.get_recovery_list(parent_path)
+            print(f'recovery_list =>  {len(recovery_list)}')
+            if recovery_list:
+                temidb = con.temidb_connection(host="localhost", user="root", password="", database="temidb")
+                result_table = con.result(connection=temidb)
+                result_table.insert_result_from_recoverylist(recovery_list)
             QMessageBox.information(self, "Terminado", "Los Archivos fueron preprocesados.")
+
         
         #Upgrade service information
         self.update_serviceinfo()    
