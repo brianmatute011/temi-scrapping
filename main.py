@@ -1,6 +1,8 @@
 import sys, os, pickle, winreg, hashlib, socket
 from PyQt6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QHBoxLayout, QFileDialog, QMessageBox
 from PyQt6.QtGui import QStandardItemModel
+from PyQt6.QtGui import QDesktopServices
+from PyQt6.QtCore import QUrl
 from app.temi import Ui_MainWindow
 from qtlibs.utilstemi import saved_token, get_tokenhash, read_binfile_from_tokenhash
 from app.temi_dialog_lic import Ui_Form
@@ -63,6 +65,7 @@ class MainWindow(QMainWindow):
 
         self.ui.actionOpen_file.triggered.connect(self.open_file_dialog)
         self.ui.actionSet_License.triggered.connect(self.open_license_dialog)
+        self.ui.actionPurchase.triggered.connect(self.open_browser)
         self.ui.pushButton.clicked.connect(self.button_start)
 
         self.setup_layouts()
@@ -178,7 +181,10 @@ class MainWindow(QMainWindow):
         self.user_key = rbin_file[1]
         print(f'User key:  {self.user_key}')
         self.user_pdft = apin.user_pdftables(self.user_key)                
-
+    
+    def open_browser(self):
+        url = QUrl('https://pdftables.com/pricing#header')
+        QDesktopServices.openUrl(url)
             
 
 
