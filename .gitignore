@@ -16,6 +16,7 @@ test.py
 combotest.py
 aviblecomboBox.py
 resources/
+*.sql
 **/__pycache__
 *.pyc
 tlibs/pdf_scrapper_api/__pycache__/__init__.cpython-311.pyc
