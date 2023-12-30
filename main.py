@@ -161,12 +161,13 @@ class MainWindow(QMainWindow):
     def update_serviceinfo(self):
         token_hash = get_tokenhash()
         cpage_avaible = None
-        if not token_hash is None:
+        rbin_file = [None, None]
+        if token_hash is not None:
             rbin_file =  read_binfile_from_tokenhash(token_hash)
             cpage_avaible = rbin_file[0]
             self.ui.label_3.setText(f'Paginas disponibles: {cpage_avaible}')
 
-            if not cpage_avaible is None:
+            if  cpage_avaible is not None:
                 if cpage_avaible <= (1000 * .10): 
                     self.ui.label_3.setStyleSheet("color: red")
                 elif cpage_avaible <= (1000 * .30):
