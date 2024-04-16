@@ -1,10 +1,10 @@
-Extracción de Tablas desde PDF con pdftables_api
-Descripción
+# Extracting Tables from PDF with pdftables_api
+Description
 
-Esta aplicación utiliza la librería pdftables_api para facilitar la extracción de tablas con datos desde archivos PDF. La librería pdftables_api permite convertir las tablas en un formato fácilmente manejable, como CSV o Excel, para su posterior análisis.
-Requisitos Previos
+This application uses the pdftables_api library to facilitate the extraction of tables with data from PDF files. The pdftables_api library allows you to convert tables into an easily manageable format, such as CSV or Excel, for later analysis.
+Previous requirements
 
-Antes de utilizar esta aplicación, asegúrate de tener instaladas las siguientes dependencias:
+Before using this application, make sure you have the following dependencies installed:
 
     Python 3.x
     numpy>=1.18.0,
@@ -14,11 +14,11 @@ Antes de utilizar esta aplicación, asegúrate de tener instaladas las siguiente
     pdftables_api @ https://github.com/pdftables/python-pdftables-api/archive/master.tar.gz,
 
 
-Contribuciones
+# Contributions
 
-¡Contribuciones son bienvenidas! Si encuentras algún problema o tienes sugerencias de mejora, no dudes en abrir un problema o enviar una solicitud de extracción.
-Licencia
+Contributions are welcome! If you encounter any issues or have suggestions for improvements, feel free to open an issue or submit a pull request.
+License
 
-Este proyecto está bajo la Licencia MIT. Consulta el archivo LICENSE para obtener más detalles.
+This project is licensed under the MIT License. See the LICENSE file for more details.
 
  
